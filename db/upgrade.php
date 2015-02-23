@@ -20,7 +20,7 @@
  *
  * @package    coursechecklist
  * @category   local
- * @copyright  2014 Oxford Brookes University {@link http://www.brookes.ac.uk/}
+ * @copyright  2015, Oxford Brookes University {@link http://www.brookes.ac.uk/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
