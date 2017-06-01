@@ -25,7 +25,6 @@
  */
 
 
-
 /** Insert a record of a checklist having been checked for a given (single) course
  * 
  * @param type $cid  the course id
@@ -38,19 +37,15 @@ function insert_checklist_update($courseid, $userid) {
     global $DB;
     
     $record = new stdClass();
-    $record->courseid       = $courseid;
-    $record->userid         = $userid;
-    $record->date           = time();
+    $record->courseid = $courseid;
+    $record->userid = $userid;
+    $record->date = time();
     
     $DB->insert_record('local_coursechecklist', $record, false);      
-    
 }
 
-
-
-
 /**
- * Build a list of courses meeting moduleleader checklist criteria - copies block/moduleleader functionality
+ * Build a list of courses meeting 'checklist' criteria - copies block/course_status functionality
  * 
  * @global type $CFG
  * @global type $DB
@@ -85,12 +80,9 @@ function get_pending_courses(&$totalcount, $leader_id) {
     $courses = array();
     $c = 0; // counts how many visible courses we've seen
 
-    $params = array();
-   
-    $rs = $DB->get_recordset_sql($sql, $params);
+    $rs = $DB->get_recordset_sql($sql, array());
     foreach($rs as $course) {
 
-        // context_instance_preload($course);
         context_helper::preload_from_record($course);
 
         $coursecontext = context_course::instance($course->id);
@@ -109,7 +101,6 @@ function get_pending_courses(&$totalcount, $leader_id) {
     return $courses;
 }
 
-
 /** 
  * Check to see if any of the courses in a list have been checklisted and return yes/no
  * 
@@ -119,27 +110,19 @@ function get_pending_courses(&$totalcount, $leader_id) {
  */
 
 function count_checklist_for_courses($course_include) {
-    
     global $DB;
     
     $c = 0;
     
     $sql = "SELECT count(*) as count from mdl_local_coursechecklist where courseid in $course_include ";
         
-    $params = array();
- 
-    $rs = $DB->get_recordset_sql($sql, $params);
-    // just one
-    foreach($rs as $row) {
+    $rs = $DB->get_recordset_sql($sql, array());
+    foreach($rs as $row) { // just one
         $c = $row->count;
     }
     $rs->close();        
-    
-    // echo $sql;
-    
+       
     return $c > 0;
-        
-    
 }
 
 

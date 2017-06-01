@@ -29,8 +29,8 @@ require_once("db_update.php");
 require_once($CFG->dirroot.'/course/lib.php');
 require_once($CFG->libdir . '/coursecatlib.php');
  
-// Additional 16/5/2014 following feedback from RF/AB - now also display the course list as displayed in the 'Moduleleader' block
-// Master switch of whether to (re)show this course list - this uses much code copied from block/moduleleader, along with block/moduleleader language and settings
+// Additional 16/5/2014 following feedback from RF/AB - now also display the course list as displayed in the 'Course Status' block
+// Master switch of whether to (re)show this course list - this uses much code copied from block/course_status, along with block/course_status language and settings
 // NB this copying of functionality should be resolved if this is going to be used long term - just done this way for demo/test purposes.
 $show_course_list = get_config('coursechecklist', 'showcourselist');
 
@@ -111,7 +111,6 @@ else {
             $params = array('id' => $this_course_id);
             $course = $DB->get_record('course', $params, '*', MUST_EXIST);
             
-            // preload_course_contexts($course->id);
             context_helper::preload_course($course->id);
             $context = context_course::instance($course->id, MUST_EXIST);
 
