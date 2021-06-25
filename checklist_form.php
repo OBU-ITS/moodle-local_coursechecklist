@@ -20,14 +20,13 @@
  *
  * @package    coursechecklist
  * @category   local
- * @copyright  2015, Oxford Brookes University {@link http://www.brookes.ac.uk/}
+ * @copyright  2021, Oxford Brookes University {@link http://www.brookes.ac.uk/}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once("../../config.php");
 require_once("db_update.php");
 require_once($CFG->dirroot.'/course/lib.php');
-require_once($CFG->libdir . '/coursecatlib.php');
  
 // Additional 16/5/2014 following feedback from RF/AB - now also display the course list as displayed in the 'Course Status' block
 // Master switch of whether to (re)show this course list - this uses much code copied from block/course_status, along with block/course_status language and settings
@@ -234,8 +233,7 @@ function print_new_course_list($courseids) {
     
     // Get the master category list (so we can exclude the ones that won't be relevant eg non-PIP)
     // I hope this is cached (core Moodle) and isn't recalculated every time (but see https://tracker.moodle.org/browse/MDL-40276 )
-    $displaylist =  coursecat::make_categories_list();
-    // $parentlist = coursecat::get_parents();    
+    $displaylist =  \core_course_category::make_categories_list();
       
     $courses = get_pending_courses($count, $USER->id);
  
