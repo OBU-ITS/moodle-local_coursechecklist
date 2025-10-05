@@ -176,7 +176,7 @@ function print_course_checklist($courseids) {
     $id = get_config('coursechecklist', 'page_id');
    
     if (!$cm = get_coursemodule_from_id('page', $id)) {
-        print_error('invalidcoursemodule');
+        throw new \moodle_exception('invalidcoursemodule');
     }
     $page = $DB->get_record('page', array('id'=>$cm->instance), '*', MUST_EXIST);
     
